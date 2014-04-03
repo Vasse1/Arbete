@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+
+        <div class="content-header">
+            <center><img src="../../Content/Banner.jpg"/></center>
+        </div>
+        <div class="content-wrapper2">
+            <p class="site-title">@Html.ActionLink("Grupp F", "Index", "Home")</p>
+        </div>
+
+        <div class="content-wrapper" id="NavBar">
+            <div class="float-left">
+                <div class="float-left">
+                    
+                    <section id="login">
+                        
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                </div>
+                <br/>                
+            </div>
+            <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Search", "Index", "Search") </li>
+                        
+                        @if(User.IsInRole("Renter")||User.IsInRole("Admin"))
+                        {
+                           <li>@Html.ActionLink("Add Object", "Create", "RegisterObject")</li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                             <li>@Html.ActionLink("Confirm Rentable Object", "Index", "ConfirmObject")</li>
+                        }
+                    </ul>
+                </nav>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Booking Site © All rights Reserved Group F</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryui")
+</body>
+</html>

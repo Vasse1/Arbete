@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MvcApplication1.Models.Picture>
+@{
+    ViewBag.Title = "Home";
+}
+@section featured {
+    <div class="content-wrapper2">
+        <hgroup class="title">
+            <h1>Vacation Rentals for Life</h1>
+        </hgroup>
+        <p>
+            Makes your dreams come true!
+        </p>
+    </div>
+}
+<div class="content-wrapper">
+    <h3>What can you do on our website?</h3>
+        <ul>
+        <li>
+            <h5>Register now and search for Apartments, Houses and much more!</h5>
+            If you don't speak english, please click the link below to use Google Translate
+        <br />
+            <a href="http://www.translate.google.com" target="_blank" id="Google">Click here!</a>
+        </li>
+
+        <li>
+            <h5>Book, pay and you're all set!</h5>
+            You can also upload and lease your own living, like the person you're renting from!
+        </li>
+
+        <li>
+            <h5>Don't hesitate to contact admin if you have any questions!</h5>
+            Contact admin at: henrik.holmgren@vacationrentalsforlife.com
+        </li>
+
+        <li>
+            <h5>And don't forget to rate the rentals!</h5>
+        </li>
+        </ul>
+</div>
+<table>
+
+    @foreach (var item in Model)
+    {
+        if (item != null)
+        {
+        <tr>
+            <td>
+                <a href="~/ObjectInformation/Index/@item.RentableObject.Id">
+                    <img src="@Url.Content(item.Path)" alt="" height="90" width="90"/></a>
+                <br>
+                <a href="~/Book/Index/@item.RentableObject.Id">
+                    <button>Book me now!</button>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(t => item.RentableObject.Title)
+            </td>
+        </tr> 
+        }
+    }
+</table>

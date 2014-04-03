@@ -1,0 +1,151 @@
+@model MvcApplication1.Models.CreateModels
+
+@using (Html.BeginForm("Create", "RegisterObject",null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+      @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="content-wrapper2">
+         <div class="editor-label">
+            @Html.Label("Description")
+        </div>
+            
+            @Html.ValidationMessageFor(m=>m.RentableObject.Title)
+     @Html.TextAreaFor(m => m.RentableObject.Title)
+              
+             <div class="editor-label">
+            @Html.Label("Address")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.Address)
+             @Html.TextBoxFor(m => m.RentableObject.Address)
+        
+             <div class="editor-label">
+            @Html.Label("Zip-Code")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.ZipCode)
+            <input type="number" name="RentableObject.ZipCode" min="10000" max="99999" /><br />
+       
+             <div class="editor-label">
+            @Html.Label("Post Town")
+        </div>
+            @Html.ValidationMessageFor(m=>m.RentableObject.PostTown)
+             @Html.TextBoxFor(m => m.RentableObject.PostTown)
+            
+          <div class="editor-label">
+            @Html.Label("Living Area in Square Meters")
+        </div>
+           @Html.ValidationMessageFor(m=>m.RentableObject.SizeSqm)
+             <input type="number" name="RentableObject.SizeSqm" min="1"  /><br />
+         
+          <div class="editor-label">
+            @Html.Label("Type of Object")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.ObjectType)
+            <label>@Html.RadioButtonFor(m=>m.RentableObject.ObjectType,"House")House</label>
+    <label>   @Html.RadioButtonFor(m=>m.RentableObject.ObjectType,"Apartment")Apartment</label>
+            <label>   @Html.RadioButtonFor(m=>m.RentableObject.ObjectType,"Room")Room</label>
+            
+               <div class="editor-label">
+            @Html.Label("Floors")
+        </div>
+            <input type="number" name="RentableObject.Floors" value="0" /> If Apartment or Room is chosen, which floor is it located on<br />
+        
+          <div class="editor-label">
+            @Html.Label("Elevator")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.Elevator)
+         
+            @Html.CheckBoxFor(m=>m.RentableObject.Elevator)
+                
+        
+          <div class="editor-label">
+            @Html.Label("Rentable From")
+        </div>
+                @Html.LabelFor(m=>m.RentableObject.SeasonStart)
+                @Html.TextBoxFor(m=>m.RentableObject.SeasonStart,"{0:yyyy-MM-dd}", new  {@class = "date"} )
+        <br />
+             <div class="editor-label">
+            @Html.Label("Rentable To")
+        </div>
+                @Html.LabelFor(m=>m.RentableObject.SeasonEnd)
+                @Html.TextBoxFor(m=>m.RentableObject.SeasonEnd,"{0:yyyy-MM-dd}",new  { @class = "date" })
+            
+            <br />
+          
+          <div class="editor-label">
+            @Html.Label("Adapted For the Disabled")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.DisabledAdaptation)
+               @Html.CheckBoxFor(m => m.RentableObject.DisabledAdaptation, new { onclick="update()"})
+               
+        <div class="editor-label">
+            @Html.Label("If yes, please Describe")
+        </div>
+                <input id="description" type="text" name="RentableObject.DisabledAdaptationDescription" disabled/>
+            <br />
+      
+        <div class="editor-label">
+            @Html.Label("Amount of beds")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.Beds)
+                <input type="number" name="RentableObject.Beds" min="0" />
+            <br />
+ 
+        <div class="editor-label">
+            @Html.Label("Amount of rooms")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.NumberOfRooms)
+                <input type="number" name="RentableObject.NumberOfRooms" min="0" />
+            <br />
+
+        <div class="editor-label">
+            @Html.Label("Price")
+        </div>
+             @Html.ValidationMessageFor(m=>m.RentableObject.Price)
+                <input type="number" name="RentableObject.Price" min="0" />
+            <br />
+              
+         
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Image</legend>
+        <div class="editor-label">
+            @Html.Label("Choose picture")
+        </div>
+        <div class="editor-field">
+            <input id="Picture.Path" title="Upload a picture" 
+                                  type="file" name="file" multiple/>
+        </div>
+         <div class="editor-label">
+            @Html.Label("Picture description")
+        </div>
+        <div class="editor-field">
+            <input id="Picture.Name" title="Picture name" type="text" name="Picture.Name"/>
+        </div>
+    </fieldset>
+         <label>
+            <input type="submit" name="Create" value="Submit">
+        </label>
+    </div>
+   
+<script language="javascript">
+        function update() {
+            if ($('input[name="RentableObject.DisabledAdaptation"]').is(':checked')) {
+                $('#description').removeAttr('disabled');
+            } else {
+                $('#description').attr('disabled', "true");
+                $('#description').val("");
+            }
+        }
+       </script>
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type = "text/javascript">
+    $(document).ready(function () {
+
+        $(".date").datepicker({ dateFormat: 'yy-mm-dd' }).val();
+    });
+</script>
+}
+

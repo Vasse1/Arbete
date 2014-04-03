@@ -1,0 +1,72 @@
+﻿
+@using Microsoft.Ajax.Utilities
+@model IEnumerable<MvcApplication1.Models.RentableObject>
+
+
+@{
+    ViewBag.Title = "Index";
+    var k = new List<SelectListItem>();
+    k.Add(new SelectListItem(){Text = "Area size",Value = "1"});
+    for (int i = 10; i < 1000; i += 10)
+    {
+        var item = new SelectListItem() {Text = i.ToString()};
+
+        k.Add(item);
+    }
+    var p = new List<SelectListItem>();
+    p.Add(new SelectListItem(){Text = "Price",Value = "500000"});
+    for (int i = 1000; i < 20000; i+=1000)
+    {
+        var item = new SelectListItem() {Text = i.ToString()};
+        p.Add(item);
+    }
+}
+
+<h2>Search</h2>
+<div>
+    <br/>
+</div>
+<div>
+    @using (Html.BeginForm(Model))
+    {
+       <p>Search words <br/>
+        @Html.TextBox("searchWord")<br/>
+             
+           
+            @Html.DropDownList("objectType",new List<SelectListItem>{new SelectListItem(){Text = "Housing type", Value = ""},
+                new SelectListItem(){Text = "Room"},new SelectListItem(){Text = "Apartment"},new SelectListItem(){Text = "House"}}) 
+                 <br/>
+                 @Html.DropDownList("sizeSqm",k)
+                 <br/>
+            @Html.DropDownList("price",p)
+        </p>
+            <input type="submit" name="Submit" value="Submit" />
+        
+       
+    }
+
+
+</div>
+<table>
+<tr>
+    
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+         {
+             if (item.Picture.Count!=0)
+             {
+                 <p>
+                 <img src="@Url.Content(item.Picture.FirstOrDefault().Path)" alt="" height="90" width="90"/></p>
+             }
+             <p>Description:  @Html.DisplayFor(t => item.Title)</p>
+             <p>Size: @Html.DisplayFor(t=> item.SizeSqm)Squaremeter </p>
+             <p>Housing type: @Html.DisplayFor(t=>item.ObjectType)</p>
+             <p>Price: @Html.DisplayFor(t=>item.Price)</p>
+        <a href="~/ObjectInformation/Index/@item.Id">More Info</a>
+         }
+    }
+    
+</tr>
+   </table>
+

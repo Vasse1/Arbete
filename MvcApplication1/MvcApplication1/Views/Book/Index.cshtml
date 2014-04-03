@@ -1,0 +1,113 @@
+﻿@model MvcApplication1.Models.Rental
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Book your stay</h2>
+
+@using (Html.BeginForm("Create", "Book"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Book your stay</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(p => p.Name)
+                @Html.TextBoxFor(p => p.Name)
+            </li>
+            <li>
+                @Html.LabelFor(p => p.Email)
+                @Html.TextBoxFor(p => p.Email)
+            </li>
+            <li>
+                @Html.LabelFor(p => p.TelephoneNumber)
+                @Html.TextBoxFor(p => p.TelephoneNumber)
+            </li>
+            <li>
+                @Html.LabelFor(p => p.BookedFrom)
+                @Html.TextBoxFor(p => p.BookedFrom, "{0:yyyy-MM-dd}", new { @class = "d1" })
+            </li>
+            <li>
+                @Html.LabelFor(p => p.BookedTo)
+                @Html.TextBoxFor(p => p.BookedTo, "{0:yyyy-MM-dd}", new { @class = "d2" })
+            </li>
+            <li>
+                @Html.Label("Information")
+                @Model.RentableObject.Title
+            </li>
+            <li>
+                @Html.Label("Size")
+                @Model.RentableObject.SizeSqm SQM
+            </li>
+            <li>
+                @Html.Label("Price per night")
+                @Model.RentableObject.Price SEK
+            </li>
+           
+            <li>
+                @foreach (var item in Model.RentableObject.Picture)
+                {
+                    <a>
+                        <img src="@Url.Content(item.Path)" alt="" width="300"/></a>
+                }
+
+            </li>
+            @Html.HiddenFor(p => p.RentableObject.Price)
+            @Html.HiddenFor(p => p.RentableObject.Id)
+        </ol>
+        <label>
+            <input type="submit" name="Create" value="Submit">
+        </label>
+    </fieldset>
+}
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".d1").datepicker({
+                firstDay: 1 ,
+                inline: true,
+                minDate: 0,
+                showOtherMonths: true,               
+                dateFormat: 'yy-mm-dd',
+                beforeShowDay: disabledays,
+                onSelect: function(date){            
+                var date1 = $('.d1').datepicker('getDate');           
+                var date = new Date( Date.parse( date1 ) ); 
+                date.setDate( date.getDate() + 1 );        
+                var newDate = date.toDateString(); 
+                newDate = new Date( Date.parse( newDate ) );                      
+                $('.d2').datepicker("option","minDate",newDate);            
+            }
+            }).val();
+
+            $(".d2").datepicker({
+                firstDay: 1,
+                inline: true,
+                showOtherMonths: true,
+                dateFormat: 'yy-mm-dd',
+                beforeShowDay: disabledays
+            });
+           
+        });
+        function disabledays(date) {
+            var ymd = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+          
+            var removeDays = [];
+            @foreach (var item in Model.BookedDates)
+            {
+                @Html.Raw("removeDays.push('" + String.Format("{0:yyyy/M/d}", item) + "');")               
+            }
+            
+            if ($.inArray(ymd, removeDays) >= 0) {
+                return [false];
+            } else {
+                
+                return [true];
+            }
+        }
+    </script>
+}

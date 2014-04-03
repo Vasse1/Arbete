@@ -1,0 +1,34 @@
+﻿@model MvcApplication1.Models.RentableObject
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h3>Title</h3>
+<p>@Model.Title</p>
+<h3>Price per Day</h3>
+<p>@Model.Price</p>
+<h3>Address</h3>
+<p>@Model.Address</p>
+<h3>PostTown</h3>
+<p>@Model.PostTown</p>
+<h3>ZipCode</h3>
+<p>@Model.ZipCode</p>
+<h3>ObjectType</h3>
+<p>@Model.ObjectType</p>
+<h3>Beds</h3>
+<p>@Model.Beds</p>
+<h3>DisabledAdaption</h3>
+<p>@Model.DisabledAdaptation</p>
+<h3>DisabledAdaptationDescription</h3>
+<p>@Model.DisabledAdaptationDescription</p>
+<h3>Floors</h3>
+<p>@Model.Floors</p>
+@foreach (var item in Model.Picture)
+{
+     <a ><img src="@Url.Content(item.Path)" alt="" width="300"/></a>
+   
+}
+
+ <br>
+    <a href="~/Book/Index/@Model.Id"><button>Book me now!</button></a>

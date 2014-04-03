@@ -1,0 +1,46 @@
+﻿@model MvcApplication1.Models.Rental
+@{
+    ViewBag.Title = "Confirmed";
+}
+
+<h2>Your booking is confirmed</h2>
+
+<fieldset>
+     <legend>Your booking is confirmed</legend>
+    <ol>
+            <li>
+                @Html.LabelFor(p => p.Name)
+                @Model.Name
+            </li>
+            <li>
+                @Html.LabelFor(p => p.Email)
+                @Model.Email
+            </li>
+            <li>
+                @Html.LabelFor(p => p.TelephoneNumber)
+                @Model.TelephoneNumber
+            </li>
+            <li>
+                @Html.LabelFor(p => p.BookedFrom)
+                @String.Format("{0:yyyy/M/d}",Model.BookedFrom)
+            </li>
+            <li>
+                @Html.LabelFor(p => p.BookedTo)
+                @String.Format("{0:yyyy/M/d}",Model.BookedTo)
+            </li>
+            <li>
+                @Html.Label("Information")
+                @Model.RentableObject.Title
+            </li>
+            <li>
+                @Html.Label("Size")
+                @Model.RentableObject.SizeSqm SQM
+            </li>
+            <li>
+                @Html.Label("Total price")
+                @Model.Payment.Price SEK
+            </li>
+           
+           
+        </ol>
+</fieldset>

@@ -1,0 +1,110 @@
+﻿@model IEnumerable<MvcApplication1.Models.RentableObject>
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Create", "ConfirmObject"))
+{
+     if (Model.Count() < 1)
+        {
+            <p>
+                @Html.Label("There are no more objects to confirm")
+            </p> 
+        }
+    foreach (var item in Model)
+    {    
+    <div class="editor-label">
+        @Html.Label("Description")
+    </div>
+            
+    @item.Title
+              
+    <div class="editor-label">
+        @Html.Label("Address")
+    </div>
+    @item.Address
+    <div class="editor-label">
+        @Html.Label("Zip-Code")
+    </div>
+    @item.ZipCode
+    <div class="editor-label">
+        @Html.Label("Post Town")
+    </div>
+    @item.PostTown
+    <div class="editor-label">
+        @Html.Label("Living Area in Square Meters")
+    </div>
+    @item.SizeSqm
+    <div class="editor-label">
+        @Html.Label("Type of Object")
+    </div>
+    @item.ObjectType
+    <div class="editor-label">
+        @Html.Label("Floors")
+    </div>
+    @item.Floors
+    <div class="editor-label">
+        @Html.Label("Elevator")
+    </div>
+    @item.Elevator
+    <div class="editor-label">
+        @Html.Label("Rentable From")
+    </div>
+    @item.SeasonStart
+    <br />
+    <div class="editor-label">
+        @Html.Label("Rentable To")
+    </div>
+    @item.SeasonEnd
+    <br />
+    <div class="editor-label">
+        @Html.Label("Adapted For the Disabled")
+    </div>
+    @item.DisabledAdaptation     
+    <div class="editor-label">
+        @Html.Label("Disabled description")
+    </div>
+    @item.DisabledAdaptationDescription
+    <br />
+      
+    <div class="editor-label">
+        @Html.Label("Amount of beds")
+    </div>
+    @item.Beds
+    <br />
+ 
+    <div class="editor-label">
+        @Html.Label("Amount of rooms")
+    </div>
+    @item.NumberOfRooms
+    <br />
+
+    <div class="editor-label">
+        @Html.Label("Price per day")
+    </div>
+    @item.Price
+         
+     <div class="editor-label">
+        @Html.Label("Check if approved")
+    </div>
+    <form action="/ConfirmObject/Create" method="post">
+        @Html.CheckBox("Available")
+
+        @Html.Hidden("Id", item.Id)
+
+        <label>
+            <input type="submit" name="Create" value="Submit">
+        </label>
+    </form>
+        foreach (var item1 in item.Picture)
+        {
+    <a>
+        <img src="@Url.Content(item1.Path)" alt="" width="300"/></a>
+   
+        }
+
+       
+    }
+
+
+}

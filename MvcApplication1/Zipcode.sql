@@ -1,0 +1,21 @@
+USE [VacationDB]
+GO
+
+/****** Object:  Table [dbo].[Zipcode]    Script Date: 12/16/2013 15:11:21 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Zipcode](
+	[zipcodeID] [int] NOT NULL,
+	[city] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Zipcode] PRIMARY KEY CLUSTERED 
+(
+	[zipcodeID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
